@@ -1,7 +1,8 @@
 import React from "react";
+import BookList from "../containers/BookList"
 
 function Main() {
-  return <h1>GraphQl</h1>;
+  return <BookList />
 }
 
 export default Main;
