@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 function AuthorCreator() {
-  const { getFieldProps, toucher, errors, isValid } = useFormik({
+  const { getFieldProps, touched, errors, isValid } = useFormik({
     initialValues: {
       authorName: "",
     },
@@ -20,7 +20,7 @@ function AuthorCreator() {
           autoComplete="off"
           {...getFieldProps("authorName")}
         />
-        {toucher.authorName && errors.authorName ? (
+        {touched.authorName && errors.authorName ? (
           <small>{errors.authorName}</small>
         ) : null}
       </div>
