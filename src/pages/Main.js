@@ -1,8 +1,14 @@
 import React from "react";
-import BookList from "../containers/BookList"
+import BookList from "../containers/BookList";
+import AuthorCreator from "../containers/AuthorCreator";
 
 function Main() {
-  return <BookList />
+  return (
+    <>
+      <BookList />
+      <AuthorCreator />
+    </>
+  );
 }
 
 export default Main;
