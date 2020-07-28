@@ -11,6 +11,15 @@ const BOOKS = gql`
       }
     }
   }
-`
+`;
 
-export { BOOKS };
+const AUTHORS = gql`
+  query Authors {
+    authors {
+      id
+      name
+    }
+  }
+`;
+
+export { BOOKS, AUTHORS };
