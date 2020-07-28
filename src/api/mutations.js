@@ -6,6 +6,14 @@ const ADD_AUTHOR = gql`
       id
     }
   }
-`
+`;
 
-export { ADD_AUTHOR };
+const ADD_BOOK = gql`
+  mutation ADD_BOOK($title: String!, $authorsId: [ID!]!) {
+    addBook(title: $title, authorsId: $authorsId) {
+      id
+    }
+  }
+`;
+
+export { ADD_AUTHOR, ADD_BOOK };
