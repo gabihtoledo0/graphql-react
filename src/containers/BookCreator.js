@@ -1,11 +1,13 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useQuery } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import * as queries from "../api/queries";
+import * as mutations from "../api/mutations";
 
 function BookCreator() {
   const { loading, error, data } = useQuery(queries.AUTHORS);
+  const [addBook] = useMutation(mutations.ADD_BOOK);
   const { getFieldProps, touched, errors, isValid, handleSubmit } = useFormik({
     initialValues: {
       bookTitle: "",
@@ -16,9 +18,14 @@ function BookCreator() {
       authorId: yup.string().required("O nome do autor é obrigatório"),
     }),
     onSubmit: (values, actions) => {
-      console.log({
-        bookTitle: values.bookTitle,
-        authorId: values.authorId,
+      addBook({
+        variables: {
+          title: values.bookTitle,
+          authorsId: [values.authorId],
+        },
+        refetchQueries: [
+          { query: queries.BOOKS }
+        ],
       });
       actions.setValues({ bookTitle: "", authorId: "" }, false);
     },
