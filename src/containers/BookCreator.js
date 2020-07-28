@@ -6,7 +6,7 @@ import * as queries from "../api/queries";
 
 function BookCreator() {
   const { loading, error, data } = useQuery(queries.AUTHORS);
-  const { getFieldProps, touched, errors } = useFormik({
+  const { getFieldProps, touched, errors, isValid, handleSubmit } = useFormik({
     initialValues: {
       bookTitle: "",
       authorId: "",
@@ -15,6 +15,13 @@ function BookCreator() {
       bookTitle: yup.string().required("O título do livro é obrigatório"),
       authorId: yup.string().required("O nome do autor é obrigatório"),
     }),
+    onSubmit: (values, actions) => {
+      console.log({
+        bookTitle: values.bookTitle,
+        authorId: values.authorId,
+      });
+      actions.setValues({ bookTitle: "", authorId: "" }, false);
+    },
   });
 
   if (loading) {
@@ -25,7 +32,7 @@ function BookCreator() {
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         <input
           type="text"
@@ -39,6 +46,9 @@ function BookCreator() {
       </div>
       <div>
         <select {...getFieldProps("authorId")}>
+          <option value="" disabled={true}>
+            Selecione
+          </option>
           {data.authors.map((author) => {
             return <option value={author.id}>{author.name}</option>;
           })}
@@ -47,6 +57,9 @@ function BookCreator() {
           <small>{errors.authorId}</small>
         ) : null}
       </div>
+      <button type="submit" disabled={!isValid}>
+        Adicionar
+      </button>
     </form>
   );
 }
