@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { useQuery, useMutation } from "react-apollo";
 import * as queries from "../api/queries";
 import * as mutations from "../api/mutations";
+import styles from "./BookCreator.module.css"
 
 function BookCreator() {
   const { loading, error, data } = useQuery(queries.AUTHORS);
@@ -23,9 +24,7 @@ function BookCreator() {
           title: values.bookTitle,
           authorsId: [values.authorId],
         },
-        refetchQueries: [
-          { query: queries.BOOKS }
-        ],
+        refetchQueries: [{ query: queries.BOOKS }],
       });
       actions.setValues({ bookTitle: "", authorId: "" }, false);
     },
@@ -42,6 +41,7 @@ function BookCreator() {
     <form onSubmit={handleSubmit}>
       <div>
         <input
+          className={styles.input}
           type="text"
           autoComplete="off"
           placeholder="Título do livro"
@@ -64,7 +64,7 @@ function BookCreator() {
           <small>{errors.authorId}</small>
         ) : null}
       </div>
-      <button type="submit" disabled={!isValid}>
+      <button className={styles.button} type="submit" disabled={!isValid}>
         Adicionar
       </button>
     </form>

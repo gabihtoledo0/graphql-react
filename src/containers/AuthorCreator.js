@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import * as mutations from "../api/mutations"
 import { useMutation } from "react-apollo"
+import styles from "./BookCreator.module.css"
 
 function AuthorCreator() {
   const [ addAuthor ] = useMutation(mutations.ADD_AUTHOR)
@@ -26,8 +27,9 @@ function AuthorCreator() {
     <form onSubmit={handleSubmit}>
       <div>
         <input
+          className={styles.input}
           type="text"
-          placeholder="nome do autor"
+          placeholder="Nome do autor"
           autoComplete="off"
           {...getFieldProps("authorName")}
         />
@@ -35,7 +37,7 @@ function AuthorCreator() {
           <small>{errors.authorName}</small>
         ) : null}
       </div>
-      <button type="submit" disabled={!isValid}>Adicionar</button>
+      <button className={styles.button} type="submit" disabled={!isValid}>Adicionar</button>
     </form>
   );
 }
